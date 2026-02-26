@@ -9,8 +9,9 @@ Clothes::Clothes(int productID, std::string name, double price, int quantity, in
 
 Clothes::~Clothes()
 {
-    //dtor
+    //Distructor
 }
+// getter
 int Clothes::getClothesID() {
     return clothesID;
 }

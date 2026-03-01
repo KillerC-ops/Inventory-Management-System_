@@ -6,7 +6,7 @@ Clothes::Clothes(int productID, std::string name, double price, int quantity, in
     //ctor
     clothesID = clothesID;
 }
-`
+
 //Changed Clothes ->Muss
 
 Clothes::~Clothes()

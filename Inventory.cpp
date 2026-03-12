@@ -29,11 +29,17 @@ bool Inventory::removeProduct(int id) {
 }
 
 
-shared_ptr<Product> Inventory::findProduct(int id) {
+std::shared_ptr<Product> Inventory::findProduct(int id)
+{
+    for (auto& product : products) //this loops through all the products' references. We are working with pointers
+    {
+        if (product.second->getId() == id)//Keyword: 'first' gets the value. 'second' gets the pair. We want the pair so we use second
+        {
+            return product.second;
+        }
+    }
 
     return nullptr;
-
-
 }
 
 
@@ -42,13 +48,41 @@ void Inventory::displayAllProducts() {
 }
 
 
-void Inventory::sortProductByPrice() {
+std::vector<std::shared_ptr<Product>> Inventory::sortProductsByPrice() const { //
+    std::vector<std::shared_ptr<Product>> sortedProducts;
 
+    // Copy products from unordered_map to vector
+    for (const auto& pair : products) {
+        sortedProducts.push_back(pair.second);
+    }
+
+    // Sort by price (ascending)
+    std::sort(sortedProducts.begin(), sortedProducts.end(),
+              [](const std::shared_ptr<Product>& a, const std::shared_ptr<Product>& b) {
+                  return a->getPrice() < b->getPrice();
+              });
+
+    return sortedProducts;
 }
 
 
-void Inventory::sortProductByQuantity() {
+void Inventory::SortByQuantity(Order& order) const {
+    // Step 1: Copy products from the unordered_map into a vector
+    std::vector<std::shared_ptr<Product>> sortedProducts;
+    for (const auto& pair : products) {
+        sortedProducts.push_back(pair.second);
+    }
 
+    // Step 2: Sort the vector by quantity (ascending)
+    std::sort(sortedProducts.begin(), sortedProducts.end(),
+              [](const std::shared_ptr<Product>& a, const std::shared_ptr<Product>& b) {
+                  return a->getQuantity() < b->getQuantity(); // uses atomic.load() internally
+              });
+
+    // Step 3: Add sorted products to the Order
+    for (const auto& product : sortedProducts) {
+        order.addProduct(product);
+    }
 }
 
 // Setters

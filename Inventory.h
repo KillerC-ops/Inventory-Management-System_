@@ -16,12 +16,12 @@ public:
 
 private:
     std::unordered_map<std::string, std::shared_ptr<Product>> products;
-    //std::atomic<int> totalItems;
+    std::atomic<int> totalItems;
     std::shared_mutex inventoryMutex;
 
 public:
     bool addProduct(std::shared_ptr<Product> product);
-    bool removeProduct(int id);
+    bool removeProduct(std::string id);
     std::shared_ptr<Product> findProduct(int id);
     void displayAllProducts();
     void sortProductByPrice();

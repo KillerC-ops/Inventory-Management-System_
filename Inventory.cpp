@@ -11,7 +11,7 @@ using namespace std;
 Inventory::Inventory()
 {
     //ctor
-    //totalItems = 0;
+    totalItems = 0;
 }
 
 Inventory::~Inventory()
@@ -19,13 +19,25 @@ Inventory::~Inventory()
     //dtor
 }
 bool Inventory::addProduct(shared_ptr<Product> product) {
+    std::string key = product->getName(); 
 
+    //Checking if product already exists
+    if(products.find(key) != products.end()) {
+        return false;
+    }
+    products[key] = product;
     return true;
 }
 
-bool Inventory::removeProduct(int id) {
+bool Inventory::removeProduct(std::string id) {
 
-    return false;
+    //auto removedProduct = products.find(id);
+    //checking if product exists
+    if(products.erase(id) > 0) {
+        return true;  // product successfully removed
+    }
+
+    return false; 
 }
 
 
@@ -44,7 +56,19 @@ std::shared_ptr<Product> Inventory::findProduct(int id)
 
 
 void Inventory::displayAllProducts() {
-    cout << "Total products: " << products.size() << endl;
+    //cout << "Total products: " << products.size() << endl;
+    if(products.empty()) {
+        std::cout << "Inventory is empty.\n";
+        return;
+    }
+
+    // loop through the map
+    /*for(const auto& pair : products) {
+        std::cout << "Product: " << pair.first     
+                  << ", Quantity: " << pair.second.getQuantity()   // product details
+                  << ", Price: " << pair.second.getPrice()
+                  << "\n";
+    }*/
 }
 
 

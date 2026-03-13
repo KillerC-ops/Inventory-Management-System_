@@ -29,7 +29,7 @@ double Product::getPrice() {
 }
 
 int Product::getQuantity() {
-    return quantity;
+    return quantity.load(); // Use atomic load to get the current quantity
 }
 
 //setters

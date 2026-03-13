@@ -1,0 +1,73 @@
+#include <iostream>
+#include <memory>
+
+#include "Inventory.h"
+#include "Electronics.h"
+#include "Clothes.h"
+
+using namespace std;
+
+int main()
+{
+    Inventory inventory;
+
+    // Create products (derived classes)
+    shared_ptr<Product> laptop = make_shared<Electronics>(1, "Laptop", 15000, 5);
+    shared_ptr<Product> phone = make_shared<Electronics>(2, "Phone", 8000, 10);
+    shared_ptr<Product> tshirt = make_shared<Clothes>(3, "T-Shirt", 250, 20);
+
+    // Add to inventory
+    inventory.addProduct(laptop);
+    inventory.addProduct(phone);
+    inventory.addProduct(tshirt);
+
+    cout << "Products added to inventory.\n\n";
+
+    // Test search
+    cout << "Searching for product with ID 2...\n";
+
+    shared_ptr<Product> found = inventory.findProduct(2);
+
+    if(found != nullptr)
+    {
+        cout << "Product found:\n";
+        found->display();
+    }
+    else
+    {
+        cout << "Product not found.\n";
+    }
+
+    cout << "\n";
+
+    // Test sorting by price
+    cout << "Products sorted by price:\n";
+
+    vector<shared_ptr<Product>> sorted = inventory.sortProductsByPrice();
+
+    for(auto& product : sorted)
+    {
+        product->display();
+    }
+
+    cout << "\n";
+
+    // Test remove
+    cout << "Removing product 'Phone'\n";
+
+    if(inventory.removeProduct("Phone"))
+        cout << "Product removed successfully\n";
+    else
+        cout << "Product not found\n";
+
+    cout << "\nRemaining products:\n";
+
+    vector<shared_ptr<Product>> afterRemoval = inventory.sortProductsByPrice();
+
+    for(auto& product : afterRemoval)
+    {
+        product->display();
+    }
+
+    return 0;
+}

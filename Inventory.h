@@ -6,7 +6,9 @@
 #include <atomic>
 #include <shared_mutex>
 #include <unordered_map>
+#include <vector>
 #include "Product.h"
+#include "Order.h"
 
 class Inventory
 {
@@ -24,8 +26,8 @@ public:
     bool removeProduct(std::string id);
     std::shared_ptr<Product> findProduct(int id);
     void displayAllProducts();
-    void sortProductByPrice();
-    void sortProductByQuantity();
+    std::vector<std::shared_ptr<Product>> sortProductsByPrice() const;
+    void sortProductsByQuantity(Order& order) const;
 
     // Setters
     void setProducts(std::unordered_map<std::string, std::shared_ptr<Product>> newProducts);

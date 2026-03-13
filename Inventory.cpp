@@ -1,4 +1,6 @@
 #include <iostream>
+#include <algorithm>
+#include <vector>
 #include "Inventory.h"
 #include "Order.h"
 #include "OrderProcessor.h"
@@ -45,7 +47,7 @@ std::shared_ptr<Product> Inventory::findProduct(int id)
 {
     for (auto& product : products) //this loops through all the products' references. We are working with pointers
     {
-        if (product.second->getId() == id)//Keyword: 'first' gets the value. 'second' gets the pair. We want the pair so we use second
+        if (product.second->getID() == id)//Keyword: 'first' gets the value. 'second' gets the pair. We want the pair so we use second
         {
             return product.second;
         }
@@ -63,12 +65,12 @@ void Inventory::displayAllProducts() {
     }
 
     // loop through the map
-    /*for(const auto& pair : products) {
+    for(const auto& pair : products) {
         std::cout << "Product: " << pair.first     
-                  << ", Quantity: " << pair.second.getQuantity()   // product details
-                  << ", Price: " << pair.second.getPrice()
+                  << ", Quantity: " << pair.second->getQuantity()
+                  << ", Price: " << pair.second->getPrice()
                   << "\n";
-    }*/
+    }
 }
 
 
@@ -90,7 +92,7 @@ std::vector<std::shared_ptr<Product>> Inventory::sortProductsByPrice() const { /
 }
 
 
-void Inventory::SortByQuantity(Order& order) const {
+void Inventory::sortProductsByQuantity(Order& order) const {
     // Step 1: Copy products from the unordered_map into a vector
     std::vector<std::shared_ptr<Product>> sortedProducts;
     for (const auto& pair : products) {

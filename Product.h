@@ -34,7 +34,7 @@ public:
     // Make abstract
     virtual double calculateTax() = 0;
 
-    double calculateFinalPrice();
+    virtual double calculateFinalPrice() = 0;
 };
 
 #endif // PRODUCT_H

@@ -27,7 +27,7 @@ public:
     std::shared_ptr<Product> findProduct(int id);
     void displayAllProducts();
     std::vector<std::shared_ptr<Product>> sortProductsByPrice() const;
-    void sortProductsByQuantity(Order& order) const;
+    std::vector<std::shared_ptr<Product>> sortProductsByQuantity() const;
 
     // Setters
     void setProducts(std::unordered_map<int, std::shared_ptr<Product>> newProducts);

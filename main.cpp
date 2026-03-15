@@ -51,7 +51,7 @@ int main()
     }
 
     // Remove a product
-    int removeId = 201;
+    int removeId = 102;
     std::cout << "\nRemoving product ID " << removeId << std::endl;
     if (storeInventory.removeProduct(removeId)) {
         std::cout << "Product removed successfully!" << std::endl;
@@ -62,6 +62,23 @@ int main()
     // Display inventory after removal
     std::cout << "\n=== Updated Inventory ===" << std::endl;
     storeInventory.displayAllProducts();
+
+    // Sort products by price
+    auto sortedByPrice = storeInventory.sortProductsByPrice();
+    std::cout << "\n=== Products Sorted by Final Price (Lowest First) ===" << std::endl;
+    for (auto& p : sortedByPrice) {
+        p->display();
+        std::cout << "Final Price: R" << p->calculateFinalPrice() << std::endl << std::endl;
+    }
+
+    // Sort products by quantity
+    auto sortedByQuantity = storeInventory.sortProductsByQuantity();
+    std::cout << "\n=== Products Sorted by Quantity (Lowest First) ===" << std::endl;
+    for (auto& p : sortedByQuantity) {
+        p->display();
+        std::cout << std::endl;
+    }
+
     std::cin.get();
     return 0;
 }

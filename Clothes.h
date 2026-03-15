@@ -8,16 +8,18 @@ class Clothes : public Product
 {
 public:
     Clothes(int productID, std::string name, double price, int quantity,
-           int clothesID);
+           std::string size, std::string material);
 
     ~Clothes() ;
 
 private:
-   int clothesID;
+   std::string size;
+   std::string material;
 
 public:
-    double calculateFinalPrice();
-    int getClothesID();
+    double calculateTax() override;
+    std::string getSize();
+    std::string getMaterial();
 
 };
 

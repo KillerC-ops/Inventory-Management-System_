@@ -5,10 +5,10 @@ using namespace std;
 Product::Product(int productID, string name, double price, int quantity)
 {
     //ctor
-    productID = productID;
-    name = name;
-    price = price;
-    quantity = quantity;
+    this->productID = productID;
+    this->name = name;
+    this->price = price;
+    this->quantity = quantity;
 }
 
 Product::~Product()

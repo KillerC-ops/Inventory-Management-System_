@@ -21,7 +21,7 @@ Inventory::~Inventory()
     //dtor
 }
 bool Inventory::addProduct(shared_ptr<Product> product) {
-    std::string key = product->getName(); 
+    int key = product->getID(); 
 
     //Checking if product already exists
     if(products.find(key) != products.end()) {
@@ -31,9 +31,8 @@ bool Inventory::addProduct(shared_ptr<Product> product) {
     return true;
 }
 
-bool Inventory::removeProduct(std::string id) {
+bool Inventory::removeProduct(int id) {
 
-    //auto removedProduct = products.find(id);
     //checking if product exists
     if(products.erase(id) > 0) {
         return true;  // product successfully removed
@@ -45,20 +44,15 @@ bool Inventory::removeProduct(std::string id) {
 
 std::shared_ptr<Product> Inventory::findProduct(int id)
 {
-    for (auto& product : products) //this loops through all the products' references. We are working with pointers
-    {
-        if (product.second->getID() == id)//Keyword: 'first' gets the value. 'second' gets the pair. We want the pair so we use second
-        {
-            return product.second;
-        }
+    auto it = products.find(id);
+    if (it != products.end()) {
+        return it->second;
     }
-
     return nullptr;
 }
 
 
 void Inventory::displayAllProducts() {
-    //cout << "Total products: " << products.size() << endl;
     if(products.empty()) {
         std::cout << "Inventory is empty.\n";
         return;
@@ -66,10 +60,8 @@ void Inventory::displayAllProducts() {
 
     // loop through the map
     for(const auto& pair : products) {
-        std::cout << "Product: " << pair.first     
-                  << ", Quantity: " << pair.second->getQuantity()
-                  << ", Price: " << pair.second->getPrice()
-                  << "\n";
+        pair.second->display();
+        std::cout << "\n";
     }
 }
 
@@ -112,8 +104,8 @@ void Inventory::sortProductsByQuantity(Order& order) const {
 }
 
 // Setters
-void Inventory::setProducts(unordered_map<std::string, shared_ptr<Product>> newProducts) {
-
+void Inventory::setProducts(unordered_map<int, shared_ptr<Product>> newProducts) {
+    products = newProducts;
 }
 
 //void Inventory::setTotalItems(int value) {
@@ -121,7 +113,7 @@ void Inventory::setProducts(unordered_map<std::string, shared_ptr<Product>> newP
 //}
 
 // Getters
-unordered_map<std::string, shared_ptr<Product>> Inventory::getProducts() {
+unordered_map<int, shared_ptr<Product>> Inventory::getProducts() {
     return products;
 }
 

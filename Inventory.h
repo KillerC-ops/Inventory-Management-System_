@@ -17,24 +17,24 @@ public:
     ~Inventory();
 
 private:
-    std::unordered_map<std::string, std::shared_ptr<Product>> products;
+    std::unordered_map<int, std::shared_ptr<Product>> products;
     std::atomic<int> totalItems;
     std::shared_mutex inventoryMutex;
 
 public:
     bool addProduct(std::shared_ptr<Product> product);
-    bool removeProduct(std::string id);
+    bool removeProduct(int id);
     std::shared_ptr<Product> findProduct(int id);
     void displayAllProducts();
     std::vector<std::shared_ptr<Product>> sortProductsByPrice() const;
     void sortProductsByQuantity(Order& order) const;
 
     // Setters
-    void setProducts(std::unordered_map<std::string, std::shared_ptr<Product>> newProducts);
+    void setProducts(std::unordered_map<int, std::shared_ptr<Product>> newProducts);
     void setTotalItems(int value);
 
     // Getter
-    std::unordered_map<std::string, std::shared_ptr<Product>> getProducts();
+    std::unordered_map<int, std::shared_ptr<Product>> getProducts();
     int getTotalItems();
 };
 

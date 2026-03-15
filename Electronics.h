@@ -7,15 +7,15 @@
 class Electronics : public Product
 {
 public:
-    Electronics(int productID, std::string name, double price, int quantity, int electronicID);
+    Electronics(int productID, std::string name, double price, int quantity, std::string specs);
     ~Electronics() ;
 
 private:
-    int electronicID;
+    std::string specs;
 
 public:
-    int getElectronicID();
-    double calculateFinalPrice();
+    std::string getSpecs();
+    virtual double calculateTax() override;
 
 };
 

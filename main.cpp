@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 #include "Electronics.h"
 #include "Clothes.h"
 #include "OrderProcessor.h"
@@ -12,7 +13,7 @@ using namespace std;
 int main()
 {
    // cout << "The System is in construction..." << endl;
-    cout << "::::::::: Inventory Management System :::::::::::"<<endl;
+    /*cout << "::::::::: Inventory Management System :::::::::::"<<endl;
     cout << "1. Add Product "<<endl;
     cout << "2. Remove Product "<<endl;
     cout << "3. Display All Products "<<endl;
@@ -20,6 +21,47 @@ int main()
     cout << "5. Sort Products"<<endl;
     cout << "6. Process Orders "<<endl;
     cout << "7. Exit "<<endl;
-    cout << "Choose option: "<<endl;
+    cout << "Choose option: "<<endl;*/
+    Inventory storeInventory;
+
+    // Create some products
+    auto laptop = std::make_shared<Electronics>(101, "Laptop", 1200.50, 10, "Intel i7, 16GB RAM");
+    auto smartphone = std::make_shared<Electronics>(102, "Smartphone", 800.00, 25, "128GB Storage, 6GB RAM");
+    auto tshirt = std::make_shared<Clothes>(201, "T-Shirt", 20.0, 50, "M", "Cotton");
+    auto jeans = std::make_shared<Clothes>(202, "Jeans", 40.0, 30, "L", "Denim");
+    
+    // Add products to inventory
+    storeInventory.addProduct(laptop);
+    storeInventory.addProduct(smartphone);
+    storeInventory.addProduct(tshirt);
+    storeInventory.addProduct(jeans);
+
+    // Display all products
+    std::cout << "=== Inventory List ===" << std::endl;
+    storeInventory.displayAllProducts();
+
+    // Search for a product by ID
+    int searchId = 102;
+    std::cout << "\nSearching for product ID " << searchId << ":\n";
+    auto found = storeInventory.findProduct(searchId);
+    if (found) {
+        found->display();
+    } else {
+        std::cout << "Product not found!" << std::endl;
+    }
+
+    // Remove a product
+    int removeId = 201;
+    std::cout << "\nRemoving product ID " << removeId << std::endl;
+    if (storeInventory.removeProduct(removeId)) {
+        std::cout << "Product removed successfully!" << std::endl;
+    } else {
+        std::cout << "Failed to remove product." << std::endl;
+    }
+
+    // Display inventory after removal
+    std::cout << "\n=== Updated Inventory ===" << std::endl;
+    storeInventory.displayAllProducts();
+    std::cin.get();
     return 0;
 }

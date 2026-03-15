@@ -1,10 +1,10 @@
 #include "Clothes.h"
 
-Clothes::Clothes(int productID, std::string name, double price, int quantity, int clothesID): Product(productID, name, price, quantity)
+Clothes::Clothes(int productID, std::string name, double price, int quantity, std::string size, std::string material): Product(productID, name, price, quantity)
 
 {
-    //ctor
-    clothesID = clothesID;
+    this->size = size;
+    this->material = material;
 }
 
 //Changed Clothes ->Muss
@@ -14,12 +14,14 @@ Clothes::~Clothes()
     //Distructor
 }
 // getter
-int Clothes::getClothesID() {
-    return clothesID;
+std::string Clothes::getSize() {
+    return size;
 }
 
-double Clothes::calculateFinalPrice() {
-    double price = getPrice();
-    double tax = price * 0.15;  // 15% tax for clothes
-    return price + tax;
+std::string Clothes::getMaterial() {
+    return material;
+}
+
+double Clothes::calculateTax() {
+    return getPrice() * 0.15;  // 15% tax for clothes
 }

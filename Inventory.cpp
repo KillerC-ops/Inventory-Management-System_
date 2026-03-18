@@ -44,11 +44,11 @@ bool Inventory::removeProduct(int id) {
 
 std::shared_ptr<Product> Inventory::findProduct(int id)
 {
-    auto it = products.find(id);
-    if (it != products.end()) {
-        return it->second;
+    if (products.find(id) == products.end()) {
+        return nullptr; // not found
     }
-    return nullptr;
+
+    return products.find(id)->second; // found
 }
 
 
@@ -67,18 +67,15 @@ void Inventory::displayAllProducts() {
 
 
 std::vector<std::shared_ptr<Product>> Inventory::sortProductsByPrice() const {
-    // Step 1: Create a temporary vector to store products
-    // We use a vector because an unordered_map does not maintain any order
+    // create a vector to hold the products
     std::vector<std::shared_ptr<Product>> sortedProducts;
-    // Step 2: Copy all products from unordered_map to vector
+    //  Copy all products from unordered_map to vector
     for (const auto& pair : products) {
         sortedProducts.push_back(pair.second);
     }
 
-    // Step 3: Sort the vector by final price in ascending order
-    // 'calculateFinalPrice()' includes the base price + tax
-    // std::sort uses a lambda function to decide which product comes first
-    // a < b means the product with smaller final price will appear first
+    // Sort the vector by final price (price + tax)
+    // The lambda function compares the final price of two products
     std::sort(sortedProducts.begin(), sortedProducts.end(),
               [](const std::shared_ptr<Product>& a, const std::shared_ptr<Product>& b) {
                   return a->calculateFinalPrice() < b->calculateFinalPrice();
@@ -108,27 +105,21 @@ std::vector<std::shared_ptr<Product>> Inventory::sortProductsByPrice() const {
     }
 }*/
 std::vector<std::shared_ptr<Product>> Inventory::sortProductsByQuantity() const {
-    // Step 1: Create a vector to store products temporarily
-    // We use a vector because unordered_map does not maintain any order
+    // we create a temporary vector to store products
     std::vector<std::shared_ptr<Product>> sortedProducts;
 
-    // Step 2: Copy all products from the unordered_map into the vector
-    // 'products' is the unordered_map<int, shared_ptr<Product>>
-    // 'pair.second' is the shared_ptr<Product>
+    //adds the products from the unordered_map to the vector
     for (const auto& pair : products) {
         sortedProducts.push_back(pair.second);
     }
 
-    // Step 3: Sort the vector by quantity in ascending order
-    // std::sort takes a lambda function that tells it how to compare two products
-    // a->getQuantity() < b->getQuantity() means smaller quantities come first
+    // sort the vector by quantity in ascending order
+    //the lambda function compares the quantity of two products
     std::sort(sortedProducts.begin(), sortedProducts.end(),
               [](const std::shared_ptr<Product>& a, const std::shared_ptr<Product>& b) {
                   return a->getQuantity() < b->getQuantity(); // Compare quantities
               });
 
-    // Step 4: Return the sorted vector
-    // Now the vector has the products sorted from lowest to highest quantity
     return sortedProducts;
 }
 

@@ -23,22 +23,47 @@ Inventory::~Inventory()
 bool Inventory::addProduct(shared_ptr<Product> product) {
     int key = product->getID(); 
 
-    //Checking if product already exists
-    if(products.find(key) != products.end()) {
-        return false;
+    //Do not be shocked by the auto, it is just a way to simplify the code and make it more readable. It automatically deduces the type of the variable based on the initializer. In this case, it deduces that item is an iterator for the unordered_map<int, shared_ptr<Product>>.
+    auto item = products.find(key);
+    if (item != products.end()) {
+        // Product exists, add quantity from the new product
+        int newQuantity = product->getQuantity();
+        item->second->increaseQuantity(newQuantity);
+    } else {
+        // Insert new product
+        products[key] = product;
     }
-    products[key] = product;
+    // Update totalItems by adding the quantity of the added product
+    int qtyToAdd = product->getQuantity();
+    totalItems += qtyToAdd;
     return true;
+
 }
 
-bool Inventory::removeProduct(int id) {
+bool Inventory::removeProduct(int id, int amountToRemove) {
 
     //checking if product exists
-    if(products.erase(id) > 0) {
-        return true;  // product successfully removed
+    auto item = products.find(id);
+
+    if (item != products.end()) {
+        //  The product exists, we need to get its quantity before removing it or its quantity from the map
+        int currentQty = item->second->getQuantity();
+
+        if (currentQty > amountToRemove) {
+            // If the current quantity is greater than the amount to remove, we can just decrease the quantity
+            item->second->decreaseQuantity(amountToRemove);
+        } else {
+            // If the current quantity is less than or equal to the amount to remove, we will remove the product from the map
+            products.erase(item);
+        }
+
+        // Update totalItems by subtracting the quantity of the removed product
+        totalItems -= amountToRemove;
+
+        return true;
     }
 
-    return false; 
+    return false;
 }
 
 
@@ -63,6 +88,8 @@ void Inventory::displayAllProducts() {
         pair.second->display();
         std::cout << "\n";
     }
+
+    std::cout << "Total Items: " << totalItems.load() << "\n";
 }
 
 
@@ -85,25 +112,6 @@ std::vector<std::shared_ptr<Product>> Inventory::sortProductsByPrice() const {
     return sortedProducts;
 }
 
-
-/*void Inventory::sortProductsByQuantity(Order& order) const {
-    // Step 1: Copy products from the unordered_map into a vector
-    std::vector<std::shared_ptr<Product>> sortedProducts;
-    for (const auto& pair : products) {
-        sortedProducts.push_back(pair.second);
-    }
-
-    // Step 2: Sort the vector by quantity (ascending)
-    std::sort(sortedProducts.begin(), sortedProducts.end(),
-              [](const std::shared_ptr<Product>& a, const std::shared_ptr<Product>& b) {
-                  return a->getQuantity() < b->getQuantity(); // uses atomic.load() internally
-              });
-
-    // Step 3: Add sorted products to the Order
-    for (const auto& product : sortedProducts) {
-        order.addProduct(product);
-    }
-}*/
 std::vector<std::shared_ptr<Product>> Inventory::sortProductsByQuantity() const {
     // we create a temporary vector to store products
     std::vector<std::shared_ptr<Product>> sortedProducts;

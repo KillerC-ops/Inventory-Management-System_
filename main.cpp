@@ -29,15 +29,21 @@ int main()
     auto smartphone = std::make_shared<Electronics>(102, "Smartphone", 800.00, 25, "128GB Storage, 6GB RAM");
     auto tshirt = std::make_shared<Clothes>(201, "T-Shirt", 20.0, 50, "M", "Cotton");
     auto jeans = std::make_shared<Clothes>(202, "Jeans", 40.0, 30, "L", "Denim");
+    auto laptop2 = std::make_shared<Electronics>(101, "Laptop", 1200.50, 50, "Intel i7, 16GB RAM");
     
     // Add products to inventory
     storeInventory.addProduct(laptop);
     storeInventory.addProduct(smartphone);
     storeInventory.addProduct(tshirt);
     storeInventory.addProduct(jeans);
+    
 
     // Display all products
     std::cout << "=== Inventory List ===" << std::endl;
+    storeInventory.displayAllProducts();
+
+    storeInventory.addProduct(laptop2); // Adding the same laptop again to test quantity increase
+    std::cout << "\n=== Inventory List After Adding Another Laptop ===" << std::endl;
     storeInventory.displayAllProducts();
 
     // Search for a product by ID
@@ -53,10 +59,10 @@ int main()
     // Remove a product
     int removeId = 102;
     std::cout << "\nRemoving product ID " << removeId << std::endl;
-    if (storeInventory.removeProduct(removeId)) {
-        std::cout << "Product removed successfully!" << std::endl;
+    if (storeInventory.removeProduct(removeId, 50)) {
+        std::cout << "Product quantity removed successfully!" << std::endl;
     } else {
-        std::cout << "Failed to remove product." << std::endl;
+        std::cout << "Failed to remove product quantity." << std::endl;
     }
 
     // Display inventory after removal
@@ -79,6 +85,7 @@ int main()
         std::cout << std::endl;
     }
 
+    //Ignore the following line, it is just to pause the console so we can see the output before it closes
     std::cin.get();
     return 0;
 }

@@ -23,7 +23,7 @@ private:
 
 public:
     bool addProduct(std::shared_ptr<Product> product);
-    bool removeProduct(int id);
+    bool removeProduct(int id, int amountToRemove);
     std::shared_ptr<Product> findProduct(int id);
     void displayAllProducts();
     std::vector<std::shared_ptr<Product>> sortProductsByPrice() const;

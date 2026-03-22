@@ -23,8 +23,8 @@ void OrderProcessor::processOrders() {
 
     for (int i = 0; i < 5; i++)
     {
-        Warehouse w(i + 1, inventory, this);
-        threads.emplace_back(&Warehouse::process, w);
+        Warehouse warehouse(i + 1, inventory, this);
+        threads.emplace_back(&Warehouse::process, warehouse);
     }
 
     for (auto& thread : threads) {

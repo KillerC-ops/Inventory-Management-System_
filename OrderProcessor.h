@@ -4,41 +4,68 @@
 #include <queue>
 #include <memory>
 #include <atomic>
-#include <shared_mutex>
+#include <mutex>
+#include <thread>
+#include <vector>
 #include "Order.h"
+#include "Warehouse.h"
 
 class Inventory; // Forward declaration
 
 class OrderProcessor
 {
+private:
+    std::shared_ptr<Inventory> inventory;
+    std::atomic<int> processedCount{0};
+    std::mutex orderMutex;
+    //std::queue<Order> pendingOrders;
+    int nextOrderID = 1; // To generate unique order IDs
+
+    std::vector<Order> orders; // Using vector instead of queue for better concurrent access
 public:
-    OrderProcessor();
-    ~OrderProcessor();
 
-    OrderProcessor(const OrderProcessor&) = delete;
-    OrderProcessor& operator=(const OrderProcessor&) = delete;
-    // Processing functions
-    void processNextOrder();
-    void startConcurrentProcessing();
+    //Main method to process orders + threads
+    void processOrders();
 
-    // Queue helpers
-    bool isQueueEmpty();
-    int getQueueSize();
 
+    void displayOrders(); // New method to display orders
     // Processed count
     int getProcessedCount();
-
+    
     // Setters
     void setInventory(std::shared_ptr<Inventory> inv);
+
+    std::mutex& getOrderMutex() {
+        return orderMutex;
+    }
+
+    int getNextOrderID() {
+        std::lock_guard<std::mutex> lock(orderMutex);
+        return nextOrderID++;
+    }
+
+    std::vector<Order>& getOrders() {
+        //std::lock_guard<std::mutex> lock(orderMutex);
+        return orders;
+    }
+
+    //OrderProcessor();
+    //~OrderProcessor();
+
+    //OrderProcessor(const OrderProcessor&) = delete;
+    //OrderProcessor& operator=(const OrderProcessor&) = delete;
+    // Processing functions
+    //void startConcurrentProcessing();
+
+    // Queue helpers
+    //bool isQueueEmpty();
+    //int getQueueSize();
+
+
 
     // Order management
     //void addOrder(const Order& order);
 
-private:
-    std::shared_ptr<Inventory> inventory;
-    std::atomic<int> processedCount{0};
-    mutable std::shared_mutex queueMutex;
-    std::queue<Order> pendingOrders;
 };
 
 #endif // ORDERPROCESSOR_H

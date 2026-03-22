@@ -36,6 +36,10 @@ public:
     // Getter
     std::unordered_map<int, std::shared_ptr<Product>> getProducts();
     int getTotalItems();
+
+
+    //Process orders
+    bool processOrder(int productID, int quantity);
 };
 
 #endif // INVENTORY_H

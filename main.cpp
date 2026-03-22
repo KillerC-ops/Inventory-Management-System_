@@ -85,6 +85,43 @@ int main()
         std::cout << std::endl;
     }
 
+
+    // Testing Process an order without threads for simplicity
+   // int orderProductID = 104; // This product ID does not exist to test the failure case
+    //int orderQuantity = 5;
+    //std::cout << "\nProcessing order for product ID " << orderProductID << " with quantity " << orderQuantity << ":\n";
+    //if (storeInventory.processOrder(orderProductID, orderQuantity)) {
+    //    std::cout << "Order processed successfully!" << std::endl;
+    //} else {
+    //    std::cout << "Failed to process order. Not enough stock or product not found." << std::endl;
+    //}
+
+
+
+
+
+    cout << "\n=== TESTING THREADS ===\n";
+
+    auto sharedInventory = make_shared<Inventory>();
+
+    sharedInventory->addProduct(make_shared<Electronics>(1, "Laptop", 15000, 2, "16GB RAM"));
+    sharedInventory->addProduct(make_shared<Electronics>(2, "Phone", 8000, 1, "128GB"));
+    sharedInventory->addProduct(make_shared<Electronics>(3, "Headphones", 1500, 0, "NC")); // always fail
+    sharedInventory->addProduct(make_shared<Clothes>(4, "T-Shirt", 300, 2, "M", "Cotton"));
+    sharedInventory->addProduct(make_shared<Clothes>(5, "Jacket", 1200, 1, "L", "Leather"));
+
+    OrderProcessor processor;
+    processor.setInventory(sharedInventory);
+
+    processor.processOrders(); // Process all orders concurrently
+
+    
+    cout << "\n=== ORDERS ===\n";
+    processor.displayOrders();
+    
+
+
+
     //Ignore the following line, it is just to pause the console so we can see the output before it closes
     std::cin.get();
     return 0;

@@ -3,11 +3,11 @@
 #include <vector>
 #include "Inventory.h"
 #include "Order.h"
-#include "OrderProcessor.h"
-#include "Warehouse.h"
+//#include "OrderProcessor.h"
+//#include "Warehouse.h"
 #include "Product.h"
-#include "Electronics.h"
-#include "Clothes.h"
+//#include "Electronics.h"
+//#include "Clothes.h"
 using namespace std;
 
 Inventory::Inventory()
@@ -21,6 +21,9 @@ Inventory::~Inventory()
     //dtor
 }
 bool Inventory::addProduct(shared_ptr<Product> product) {
+
+    std::lock_guard<std::shared_mutex> lock(inventoryMutex); // Lock the inventory for writing
+
     int key = product->getID(); 
 
     //Do not be shocked by the auto, it is just a way to simplify the code and make it more readable. It automatically deduces the type of the variable based on the initializer. In this case, it deduces that item is an iterator for the unordered_map<int, shared_ptr<Product>>.
@@ -41,6 +44,8 @@ bool Inventory::addProduct(shared_ptr<Product> product) {
 }
 
 bool Inventory::removeProduct(int id, int amountToRemove) {
+
+    std::lock_guard<std::shared_mutex> lock(inventoryMutex); // Lock the inventory for writing
 
     //checking if product exists
     auto item = products.find(id);
@@ -69,6 +74,9 @@ bool Inventory::removeProduct(int id, int amountToRemove) {
 
 std::shared_ptr<Product> Inventory::findProduct(int id)
 {
+    std::shared_lock<std::shared_mutex> lock(inventoryMutex); // Lock the inventory for reading
+
+
     if (products.find(id) == products.end()) {
         return nullptr; // not found
     }
@@ -78,6 +86,8 @@ std::shared_ptr<Product> Inventory::findProduct(int id)
 
 
 void Inventory::displayAllProducts() {
+    std::shared_lock<std::shared_mutex> lock(inventoryMutex); // Lock the inventory for reading
+
     if(products.empty()) {
         std::cout << "Inventory is empty.\n";
         return;
@@ -149,3 +159,25 @@ unordered_map<int, shared_ptr<Product>> Inventory::getProducts() {
 //int Inventory::getTotalItems() {
    // return totalItems;
 //}
+
+
+
+
+bool Inventory::processOrder(int productID, int quantity){
+    std::lock_guard<std::shared_mutex> lock(inventoryMutex); // Lock the inventory for writing
+
+    auto product = products.find(productID);
+    if (product != products.end()) {
+        if (product->second->getQuantity() >= quantity) {
+            product->second->decreaseQuantity(quantity);
+            totalItems -= quantity; // Update total items in inventory
+            return true; // Order processed successfully
+        } else {
+            // std::cout << "Not enough stock for product ID " << productID << ". Available: " << product->second->getQuantity() << ", Requested: " << quantity << std::endl;
+            return false; // Not enough stock
+        }
+    } else {
+       // std::cout << "Product ID " << productID << " not found in inventory." << std::endl;
+        return false; // Product not found
+    }
+}

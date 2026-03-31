@@ -18,7 +18,6 @@ private:
     std::shared_ptr<Inventory> inventory;
     std::atomic<int> processedCount{0};
     std::mutex orderMutex;
-    //std::queue<Order> pendingOrders;
     int nextOrderID = 1; // To generate unique order IDs
 
     std::vector<Order> orders; // Using vector instead of queue for better concurrent access
@@ -45,27 +44,8 @@ public:
     }
 
     std::vector<Order>& getOrders() {
-        //std::lock_guard<std::mutex> lock(orderMutex);
         return orders;
     }
-
-    //OrderProcessor();
-    //~OrderProcessor();
-
-    //OrderProcessor(const OrderProcessor&) = delete;
-    //OrderProcessor& operator=(const OrderProcessor&) = delete;
-    // Processing functions
-    //void startConcurrentProcessing();
-
-    // Queue helpers
-    //bool isQueueEmpty();
-    //int getQueueSize();
-
-
-
-    // Order management
-    //void addOrder(const Order& order);
-
 };
 
 #endif // ORDERPROCESSOR_H

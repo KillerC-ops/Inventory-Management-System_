@@ -3,11 +3,7 @@
 #include <vector>
 #include "Inventory.h"
 #include "Order.h"
-//#include "OrderProcessor.h"
-//#include "Warehouse.h"
 #include "Product.h"
-//#include "Electronics.h"
-//#include "Clothes.h"
 using namespace std;
 
 Inventory::Inventory()
@@ -16,10 +12,6 @@ Inventory::Inventory()
     totalItems = 0;
 }
 
-Inventory::~Inventory()
-{
-    //dtor
-}
 bool Inventory::addProduct(shared_ptr<Product> product) {
 
     std::lock_guard<std::shared_mutex> lock(inventoryMutex); // Lock the inventory for writing
@@ -147,21 +139,10 @@ void Inventory::setProducts(unordered_map<int, shared_ptr<Product>> newProducts)
     products = newProducts;
 }
 
-//void Inventory::setTotalItems(int value) {
-//    totalItems = value;
-//}
-
 // Getters
 unordered_map<int, shared_ptr<Product>> Inventory::getProducts() {
     return products;
 }
-
-//int Inventory::getTotalItems() {
-   // return totalItems;
-//}
-
-
-
 
 bool Inventory::processOrder(int productID, int quantity){
     std::lock_guard<std::shared_mutex> lock(inventoryMutex); // Lock the inventory for writing

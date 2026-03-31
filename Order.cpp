@@ -1,7 +1,5 @@
 #include "Order.h"
 
-
-//What I commented out is not needed for order
 Order::Order(int orderID , int productID, int quantity)
 {
     //ctor
@@ -11,16 +9,6 @@ Order::Order(int orderID , int productID, int quantity)
     this->orderStatus = 0;
     //totalAmount = 0.0;
 }
-
-Order::~Order()
-{
-    //dtor
-}
-
-//double Order::getTotalAmount() const {
-//    return totalAmount;
-//}
-
 
 int Order::getOrderID() const {
     return orderID;
@@ -42,17 +30,3 @@ int Order::getQuantity() const {
 void Order::setStatus(int status) {
     orderStatus = status;
 }
-
-//std::vector<std::shared_ptr<Product>> Order::getOrderProducts() const {
-//    return orderProducts;
-//}
-
-//void Order::addProduct(std::shared_ptr<Product> product) {
-
-//}
-
-//double Order::calculateTotal() {
-//    totalAmount = 0.0;
-
-//    return totalAmount;
-//}

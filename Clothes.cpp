@@ -7,12 +7,6 @@ Clothes::Clothes(int productID, std::string name, double price, int quantity, st
     this->material = material;
 }
 
-//Changed Clothes ->Muss
-
-Clothes::~Clothes()
-{
-    //Distructor
-}
 // getter
 std::string Clothes::getSize() {
     return size;

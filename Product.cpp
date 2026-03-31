@@ -11,10 +11,6 @@ Product::Product(int productID, string name, double price, int quantity)
     this->quantity = quantity;
 }
 
-Product::~Product()
-{
-    //dtor
-}
 //getters
 int Product::getID() {
     return productID;

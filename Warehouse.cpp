@@ -8,9 +8,6 @@ Warehouse::Warehouse( int id , std::shared_ptr<Inventory> inv , OrderProcessor* 
     this->warehouseID = id;
     this->inventory = inv;
     this->orderProcessor = processor;
-
-     //
-    //ctor
 }
 
 std::shared_ptr<Inventory> Warehouse::getInventory()
@@ -26,8 +23,6 @@ OrderProcessor* Warehouse::getOrderProcessor()
 //Main method to process orders + threads
 void Warehouse::process(){
 
-    //int productID = rand() % 3 + 1;
-
     vector<int> productIDs = {1, 2, 3, 4, 5};
 
     int productID = productIDs[rand() % productIDs.size()];
@@ -37,7 +32,6 @@ void Warehouse::process(){
     int orderID;
 
     {
-        //std::lock_guard<std::mutex> lock(orderProcessor->getOrderMutex());
         orderID = orderProcessor->getNextOrderID();
     }
 
@@ -58,32 +52,5 @@ void Warehouse::process(){
     std::cout << "Thread " << warehouseID
               << (success ? " SUCCESS " : " FAILED ")
               << " Product " << productID << std::endl;
-    
-    
-    
+       
 }
-
-//setters:
-//void Warehouse::setInventory(std::shared_ptr<Inventory> inventory) {
-//    inventory = inventory;
-//}
-//void Warehouse::setOrderProcessor(std::shared_ptr<OrderProcessor> processor)
-//{
-//    orderProcessor = processor;
-//}
-
-//void Warehouse::setLocation(std::string loc)
-//{
-//    location = loc;
-//}
-//getters:
-
-//std::string Warehouse::getLocation()
-//{
-    //    return location;
-    //}
-    
-    Warehouse::~Warehouse()
-    {
-        //dtor
-    }

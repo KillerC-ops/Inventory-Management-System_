@@ -5,6 +5,10 @@ Electronics::Electronics(int productID, std::string name, double price, int quan
     this->specs = specs;
 }
 
+Electronics::~Electronics()
+{
+  
+}
 std::string Electronics::getSpecs() {
     return specs;
 }

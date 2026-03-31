@@ -1,0 +1,6 @@
+Starting Inventory Management System
+Warehouse 1 created.
+Warehouse 2 created.
+Warehouse 3 created.
+Warehouse 4 created.
+Warehouse 5 created.

@@ -6,6 +6,10 @@ Clothes::Clothes(int productID, std::string name, double price, int quantity, st
     this->size = size;
     this->material = material;
 }
+Clothes::~Clothes()
+{
+   
+}
 
 // getter
 std::string Clothes::getSize() {

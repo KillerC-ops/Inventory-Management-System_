@@ -18,7 +18,7 @@ class Order
 
 public:
     Order(int OrderID, int productID, int quantity);
-    ~Order();
+   
 
     //double getTotalAmount() const;
     int getOrderID() const;

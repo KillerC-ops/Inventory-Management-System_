@@ -7,11 +7,19 @@
 #include "Warehouse.h"
 #include "Order.h"
 #include "Inventory.h"
+#include "Logger.h"
+#include <fstream>
 
 using namespace std;
 
 int main()
 {
+    // Clear log file at start
+    ofstream logFile("logs.txt", ios::trunc);
+    logFile.close();
+
+    writeLog("Starting Inventory Management System");
+   
    // cout << "The System is in construction..." << endl;
     /*cout << "::::::::: Inventory Management System :::::::::::"<<endl;
     cout << "1. Add Product "<<endl;

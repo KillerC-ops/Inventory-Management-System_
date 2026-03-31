@@ -14,7 +14,6 @@ class Inventory
 {
 public:
     Inventory();
-    ~Inventory();
 
 private:
     std::unordered_map<int, std::shared_ptr<Product>> products;

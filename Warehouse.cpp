@@ -1,6 +1,8 @@
 #include "Warehouse.h"
 #include <iostream>
 #include <cstdlib>
+#include "Logger.h"
+
 using namespace std;
 
 Warehouse::Warehouse( int id , std::shared_ptr<Inventory> inv , OrderProcessor* processor) 
@@ -8,6 +10,8 @@ Warehouse::Warehouse( int id , std::shared_ptr<Inventory> inv , OrderProcessor* 
     this->warehouseID = id;
     this->inventory = inv;
     this->orderProcessor = processor;
+    
+     writeLog("Warehouse " + to_string(warehouseID) + " created.");
 }
 
 std::shared_ptr<Inventory> Warehouse::getInventory()

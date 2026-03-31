@@ -11,7 +11,7 @@ Warehouse::Warehouse( int id , std::shared_ptr<Inventory> inv , OrderProcessor* 
     this->inventory = inv;
     this->orderProcessor = processor;
     
-     writeLog("Warehouse " + to_string(warehouseID) + " created.");
+    writeLog("Warehouse " + to_string(warehouseID) + " created.");
 }
 
 std::shared_ptr<Inventory> Warehouse::getInventory()
@@ -26,6 +26,7 @@ OrderProcessor* Warehouse::getOrderProcessor()
 
 //Main method to process orders + threads
 void Warehouse::process(){
+    writeLog("Warehouse " + to_string(warehouseID) + " started working.");
 
     vector<int> productIDs = {1, 2, 3, 4, 5};
 
@@ -39,14 +40,21 @@ void Warehouse::process(){
         orderID = orderProcessor->getNextOrderID();
     }
 
+    writeLog("WarehouseID:" + to_string(warehouseID) + " is processing Order " + to_string(orderID) + " ProductID: " + to_string(productID) + " quantity:" + to_string(qty));
     Order order(orderID, productID, qty);
 
     bool success = inventory->processOrder(productID, qty);
 
-    if (success)
+    if (success){
         order.setStatus(1);
-    else
+
+        writeLog("WarehouseID:" + to_string(warehouseID) + " SUCCESS: Order " + to_string(orderID) +" ProductID:" + to_string(productID) + " quantity:" + to_string(qty));
+    }
+    else{
         order.setStatus(2);
+
+        writeLog("WarehouseID:" + to_string(warehouseID) + " FAILED: Order " + to_string(orderID) +  " ProductID:" + to_string(productID) + " quantity:" + to_string(qty) + " (not enough stock)");
+    }
 
     {
         std::lock_guard<std::mutex> lock(orderProcessor->getOrderMutex());

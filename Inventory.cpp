@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include "Logger.h"
 #include <vector>
 #include "Inventory.h"
 #include "Order.h"
@@ -24,9 +25,13 @@ bool Inventory::addProduct(shared_ptr<Product> product) {
         // Product exists, add quantity from the new product
         int newQuantity = product->getQuantity();
         item->second->increaseQuantity(newQuantity);
+
+        writeLog("Updated product: ID=" + to_string(key) + ", added " + to_string(newQuantity) + " units");
     } else {
         // Insert new product
         products[key] = product;
+
+        writeLog("Added product: ID=" + to_string(key) + ", name=" + product->getName() + ", price=" + to_string(product->getPrice()));
     }
     // Update totalItems by adding the quantity of the added product
     int qtyToAdd = product->getQuantity();
@@ -152,13 +157,17 @@ bool Inventory::processOrder(int productID, int quantity){
         if (product->second->getQuantity() >= quantity) {
             product->second->decreaseQuantity(quantity);
             totalItems -= quantity; // Update total items in inventory
+
+            writeLog("Order processed= ProductID: " + to_string(productID) + " quantity:" + to_string(quantity) + " success");
             return true; // Order processed successfully
         } else {
-            // std::cout << "Not enough stock for product ID " << productID << ". Available: " << product->second->getQuantity() << ", Requested: " << quantity << std::endl;
+            
+            writeLog("Order failed= ProductID: " + to_string(productID) +   to_string(product->second->getQuantity()) + " available, requested " + to_string(quantity));
             return false; // Not enough stock
         }
     } else {
-       // std::cout << "Product ID " << productID << " not found in inventory." << std::endl;
+
+         writeLog("Order failed: ProductID " + to_string(productID) + " not found");
         return false; // Product not found
     }
 }

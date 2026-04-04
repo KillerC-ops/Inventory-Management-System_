@@ -1,6 +1,8 @@
 #include "Warehouse.h"
 #include <iostream>
 #include <cstdlib>
+#include <random> // works better for Multithreading than cstdlib
+#include <ctime>
 #include "Logger.h"
 
 using namespace std;
@@ -27,33 +29,39 @@ OrderProcessor* Warehouse::getOrderProcessor()
 //Main method to process orders + threads
 void Warehouse::process(){
     writeLog("Warehouse " + to_string(warehouseID) + " started working.");
+    thread_local std::mt19937 gen(std::random_device{}());
 
-    vector<int> productIDs = {1, 2, 3, 4, 5};
+    vector<int> productIDs = inventory->getAllProductIDs();
 
-    int productID = productIDs[rand() % productIDs.size()];
-    int quantity = rand() % 3 + 1; // order 1–3 items
-    int qty = rand() % 2 + 1;
-
-    int orderID;
-
+    if (productIDs.empty())
     {
-        orderID = orderProcessor->getNextOrderID();
+        cout << "No products available\n";
+        return;
     }
 
-    writeLog("WarehouseID:" + to_string(warehouseID) + " is processing Order " + to_string(orderID) + " ProductID: " + to_string(productID) + " quantity:" + to_string(qty));
-    Order order(orderID, productID, qty);
+    std::uniform_int_distribution<> productDist(0, productIDs.size() - 1);
+    std::uniform_int_distribution<> quantityDist(1, 3);
 
-    bool success = inventory->processOrder(productID, qty);
+    
+    int productID = productIDs[productDist(gen)];
+    int quantity = quantityDist(gen);
+
+    int orderID = orderProcessor->getNextOrderID();
+
+    writeLog("WarehouseID:" + to_string(warehouseID) + " is processing Order " + to_string(orderID) + " ProductID: " + to_string(productID) + " quantity:" + to_string(quantity));
+    Order order(orderID, productID, quantity);
+
+    bool success = inventory->processOrder(productID, quantity);
 
     if (success){
         order.setStatus(1);
 
-        writeLog("WarehouseID:" + to_string(warehouseID) + " SUCCESS: Order " + to_string(orderID) +" ProductID:" + to_string(productID) + " quantity:" + to_string(qty));
+        writeLog("WarehouseID:" + to_string(warehouseID) + " SUCCESS: Order " + to_string(orderID) +" ProductID:" + to_string(productID) + " quantity:" + to_string(quantity));
     }
     else{
         order.setStatus(2);
 
-        writeLog("WarehouseID:" + to_string(warehouseID) + " FAILED: Order " + to_string(orderID) +  " ProductID:" + to_string(productID) + " quantity:" + to_string(qty) + " (not enough stock)");
+        writeLog("WarehouseID:" + to_string(warehouseID) + " FAILED: Order " + to_string(orderID) +  " ProductID:" + to_string(productID) + " quantity:" + to_string(quantity) + " (not enough stock)");
     }
 
     {
@@ -61,8 +69,21 @@ void Warehouse::process(){
         orderProcessor->getOrders().push_back(order);
     }
 
-    std::cout << "Thread " << warehouseID
-              << (success ? " SUCCESS " : " FAILED ")
-              << " Product " << productID << std::endl;
-       
+    std::string message;
+
+    if (success)
+    {
+        message = "Thread " + to_string(warehouseID) +
+                " SUCCESS Product " + to_string(productID);
+    }
+    else
+    {
+        message = "Thread " + to_string(warehouseID) +
+                " FAILED Product " + to_string(productID);
+    }
+
+    
+        
+    cout << message << endl;
+    
 }

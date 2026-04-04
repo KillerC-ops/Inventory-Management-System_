@@ -171,3 +171,18 @@ bool Inventory::processOrder(int productID, int quantity){
         return false; // Product not found
     }
 }
+
+
+vector<int> Inventory::getAllProductIDs()
+{
+    
+    vector<int> IDs;
+
+    for (const auto& pair : products)
+    {
+        IDs.push_back(pair.first);
+        
+    }
+
+    return IDs;
+}

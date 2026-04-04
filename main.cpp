@@ -1,5 +1,6 @@
 #include <iostream>
 #include <memory>
+#include <limits>
 #include "Electronics.h"
 #include "Clothes.h"
 #include "OrderProcessor.h"
@@ -9,128 +10,187 @@
 #include "Inventory.h"
 #include "Logger.h"
 #include <fstream>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
+//Functions declarations
+void displayMenu();
+void handleAddProduct(shared_ptr<Inventory> inventory);
+void handleRemoveProduct(shared_ptr<Inventory> inventory);
+void handleSearchProduct(shared_ptr<Inventory> inventory);
+void handleSortProducts(shared_ptr<Inventory> inventory);
+void handleProcessOrders(shared_ptr<Inventory> inventory);
+
+
+
+
 int main()
 {
+    srand(time(0)); // Initialize random seed
     // Clear log file at start
     ofstream logFile("logs.txt", ios::trunc);
     logFile.close();
 
     writeLog("Starting Inventory Management System");
+
+    auto inventory = make_shared<Inventory>();
+    // Starter products 5 electronics and 5 clothes
+    inventory->addProduct(make_shared<Electronics>(101, "Laptop", 12000, 5, "16GB RAM"));
+    inventory->addProduct(make_shared<Electronics>(102, "Smartphone", 8000, 10, "128GB Storage"));
+    inventory->addProduct(make_shared<Electronics>(103, "Headphones", 1500, 2, "Noise Cancelling"));
+    inventory->addProduct(make_shared<Electronics>(104, "Monitor", 3000, 4, "24 inch FHD"));
+    inventory->addProduct(make_shared<Electronics>(105, "Keyboard", 700, 6, "Mechanical RGB"));
+
+    inventory->addProduct(make_shared<Clothes>(201, "T-Shirt", 300, 10, "M", "Cotton"));
+    inventory->addProduct(make_shared<Clothes>(202, "Jeans", 800, 5, "L", "Denim"));
+    inventory->addProduct(make_shared<Clothes>(203, "Jacket", 1500, 2, "XL", "Leather"));
+    inventory->addProduct(make_shared<Clothes>(204, "Sneakers", 1200, 3, "42", "Synthetic"));
+    inventory->addProduct(make_shared<Clothes>(205, "Hoodie", 900, 1, "L", "Fleece"));
+
+    int choice;
+
+    do {
+        displayMenu();
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1: handleAddProduct(inventory); break;
+        case 2: handleRemoveProduct(inventory); break;
+        case 3: inventory->displayAllProducts(); break;
+        case 4: handleSearchProduct(inventory); break;
+        case 5: handleSortProducts(inventory); break;
+        case 6: handleProcessOrders(inventory); break;
+        case 7: cout << "Exiting system...\n"; break;
+        default: cout << "Invalid choice!\n";
+        }
+
+    } while (choice != 7);
    
-   // cout << "The System is in construction..." << endl;
-    /*cout << "::::::::: Inventory Management System :::::::::::"<<endl;
-    cout << "1. Add Product "<<endl;
-    cout << "2. Remove Product "<<endl;
-    cout << "3. Display All Products "<<endl;
-    cout << "4. Search Product"<<endl;
-    cout << "5. Sort Products"<<endl;
-    cout << "6. Process Orders "<<endl;
-    cout << "7. Exit "<<endl;
-    cout << "Choose option: "<<endl;*/
-    Inventory storeInventory;
-
-    // Create some products
-    auto laptop = std::make_shared<Electronics>(101, "Laptop", 1200.50, 10, "Intel i7, 16GB RAM");
-    auto smartphone = std::make_shared<Electronics>(102, "Smartphone", 800.00, 25, "128GB Storage, 6GB RAM");
-    auto tshirt = std::make_shared<Clothes>(201, "T-Shirt", 20.0, 50, "M", "Cotton");
-    auto jeans = std::make_shared<Clothes>(202, "Jeans", 40.0, 30, "L", "Denim");
-    auto laptop2 = std::make_shared<Electronics>(101, "Laptop", 1200.50, 50, "Intel i7, 16GB RAM");
-    
-    // Add products to inventory
-    storeInventory.addProduct(laptop);
-    storeInventory.addProduct(smartphone);
-    storeInventory.addProduct(tshirt);
-    storeInventory.addProduct(jeans);
-    
-
-    // Display all products
-    std::cout << "=== Inventory List ===" << std::endl;
-    storeInventory.displayAllProducts();
-
-    storeInventory.addProduct(laptop2); // Adding the same laptop again to test quantity increase
-    std::cout << "\n=== Inventory List After Adding Another Laptop ===" << std::endl;
-    storeInventory.displayAllProducts();
-
-    // Search for a product by ID
-    int searchId = 102;
-    std::cout << "\nSearching for product ID " << searchId << ":\n";
-    auto found = storeInventory.findProduct(searchId);
-    if (found) {
-        found->display();
-    } else {
-        std::cout << "Product not found!" << std::endl;
-    }
-
-    // Remove a product
-    int removeId = 102;
-    std::cout << "\nRemoving product ID " << removeId << std::endl;
-    if (storeInventory.removeProduct(removeId, 50)) {
-        std::cout << "Product quantity removed successfully!" << std::endl;
-    } else {
-        std::cout << "Failed to remove product quantity." << std::endl;
-    }
-
-    // Display inventory after removal
-    std::cout << "\n=== Updated Inventory ===" << std::endl;
-    storeInventory.displayAllProducts();
-
-    // Sort products by price
-    auto sortedByPrice = storeInventory.sortProductsByPrice();
-    std::cout << "\n=== Products Sorted by Final Price (Lowest First) ===" << std::endl;
-    for (auto& p : sortedByPrice) {
-        p->display();
-        std::cout << "Final Price: R" << p->calculateFinalPrice() << std::endl << std::endl;
-    }
-
-    // Sort products by quantity
-    auto sortedByQuantity = storeInventory.sortProductsByQuantity();
-    std::cout << "\n=== Products Sorted by Quantity (Lowest First) ===" << std::endl;
-    for (auto& p : sortedByQuantity) {
-        p->display();
-        std::cout << std::endl;
-    }
-
-
-    // Testing Process an order without threads for simplicity
-   // int orderProductID = 104; // This product ID does not exist to test the failure case
-    //int orderQuantity = 5;
-    //std::cout << "\nProcessing order for product ID " << orderProductID << " with quantity " << orderQuantity << ":\n";
-    //if (storeInventory.processOrder(orderProductID, orderQuantity)) {
-    //    std::cout << "Order processed successfully!" << std::endl;
-    //} else {
-    //    std::cout << "Failed to process order. Not enough stock or product not found." << std::endl;
-    //}
-
-
-
-
-
-    cout << "\n=== TESTING THREADS ===\n";
-
-    auto sharedInventory = make_shared<Inventory>();
-
-    sharedInventory->addProduct(make_shared<Electronics>(1, "Laptop", 15000, 2, "16GB RAM"));
-    sharedInventory->addProduct(make_shared<Electronics>(2, "Phone", 8000, 1, "128GB"));
-    sharedInventory->addProduct(make_shared<Electronics>(3, "Headphones", 1500, 0, "NC")); // always fail
-    sharedInventory->addProduct(make_shared<Clothes>(4, "T-Shirt", 300, 2, "M", "Cotton"));
-    sharedInventory->addProduct(make_shared<Clothes>(5, "Jacket", 1200, 1, "L", "Leather"));
-
-    OrderProcessor processor;
-    processor.setInventory(sharedInventory);
-
-    processor.processOrders(); // Process all orders concurrently
-
-    
-    cout << "\n=== ORDERS ===\n";
-    processor.displayOrders();
-    
-
-
-
     //Ignore the following line, it is just to pause the console so we can see the output before it closes
     std::cin.get();
+
+
+  
+
     return 0;
+}
+
+
+void displayMenu()
+{
+    cout << "\n:::::::::::INVENTORY SYSTEM ::::::::::\n";
+    cout << "1. Add Product\n";
+    cout << "2. Remove Product\n";
+    cout << "3. Display Products\n";
+    cout << "4. Search Product\n";
+    cout << "5. Sort Products\n";
+    cout << "6. Process Orders (Threads)\n";
+    cout << "7. Exit\n";
+    cout << "Choose: ";
+}
+
+
+
+void handleAddProduct(shared_ptr<Inventory> inventory)
+{
+    int type;
+    cout << "1. Electronics\n2. Clothing\nChoose type: ";
+    cin >> type;
+
+    int id, qty;
+    double price;
+    string name;
+
+    cout << "Enter ID: "; 
+    cin >> id;
+    cout << "Enter Name: "; 
+    cin >> name;
+    cout << "Enter Price: "; 
+    cin >> price;
+    cout << "Enter Quantity: "; 
+    cin >> qty;
+
+    if (type == 1)
+    {
+        string specs;
+        cout << "Enter Specs: ";
+        cin.ignore();
+        getline(cin, specs);
+
+        inventory->addProduct(make_shared<Electronics>(id, name, price, qty, specs));
+    }
+    else
+    {
+        string size, material;
+        cout << "Enter Size: "; cin >> size;
+        cout << "Enter Material: "; cin >> material;
+
+        inventory->addProduct(make_shared<Clothes>(id, name, price, qty, size, material));
+    }
+
+    cout << "Product added!\n";
+}
+
+
+void handleRemoveProduct(shared_ptr<Inventory> inventory)
+{
+    int id, qty;
+    cout << "Enter Product ID: ";
+    cin >> id;
+    cout << "Enter Quantity to remove: ";
+    cin >> qty;
+
+    if (inventory->removeProduct(id, qty))
+        cout << "Removed successfully\n";
+    else
+        cout << "Failed (check ID or quantity)\n";
+}
+
+void handleSearchProduct(shared_ptr<Inventory> inventory)
+{
+    int id;
+    cout << "Enter Product ID: ";
+    cin >> id;
+
+    auto p = inventory->findProduct(id);
+
+    if (p)
+        p->display();
+    else
+        cout << "Product not found\n";
+}
+
+void handleSortProducts(shared_ptr<Inventory> inventory)
+{
+    int choice;
+    cout << "1. Sort by Price\n2. Sort by Quantity\nChoose: ";
+    cin >> choice;
+
+    if (choice == 1)
+    {
+        auto sorted = inventory->sortProductsByPrice();
+        for (auto& p : sorted)
+            p->display();
+    }
+    else
+    {
+        auto sorted = inventory->sortProductsByQuantity();
+        for (auto& p : sorted)
+            p->display();
+    }
+}
+
+void handleProcessOrders(shared_ptr<Inventory> inventory)
+{
+    OrderProcessor processor;
+    processor.setInventory(inventory);
+
+    cout << "\nProcessing orders using threads...\n";
+    processor.processOrders();
+
+    cout << "\n=== Orders ===\n";
+    processor.displayOrders();
 }

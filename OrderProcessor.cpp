@@ -6,9 +6,8 @@ using namespace std;
 
 // Main method to process orders + threads 
 void OrderProcessor::processOrders() {
-    writeLog("starting order processing...");
-    writeLog("Total orders to process: " + to_string(orders.size()));
-
+    writeLog("Starting order processing...");
+    
 
     std::vector<std::thread> threads;
 
@@ -22,7 +21,7 @@ void OrderProcessor::processOrders() {
         thread.join();
     }
 
-    writeLog("ending order processing...");
+    writeLog("Ending order processing...");
     writeLog("Processed " + to_string(processedCount) + " out of " + to_string(orders.size()) + " orders.");
 }
 void OrderProcessor::setInventory(std::shared_ptr<Inventory> inv) {

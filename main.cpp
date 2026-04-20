@@ -37,7 +37,7 @@ int main()
 
     auto inventory = make_shared<Inventory>();
     // Starter products 5 electronics and 5 clothes
-    inventory->addProduct(make_shared<Electronics>(101, "Laptop", 12000, 5, "16GB RAM"));
+    inventory->addProduct(make_shared<Electronics>(101, "Laptop", 12000, 2, "16GB RAM"));
     inventory->addProduct(make_shared<Electronics>(102, "Smartphone", 8000, 10, "128GB Storage"));
     inventory->addProduct(make_shared<Electronics>(103, "Headphones", 1500, 2, "Noise Cancelling"));
     inventory->addProduct(make_shared<Electronics>(104, "Monitor", 3000, 4, "24 inch FHD"));
@@ -49,8 +49,9 @@ int main()
     inventory->addProduct(make_shared<Clothes>(204, "Sneakers", 1200, 3, "42", "Synthetic"));
     inventory->addProduct(make_shared<Clothes>(205, "Hoodie", 900, 1, "L", "Fleece"));
 
-    int choice;
+    writeLog("Initial Inventory added");
 
+    int choice;
     do {
         displayMenu();
         cin >> choice;

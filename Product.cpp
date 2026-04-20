@@ -1,5 +1,4 @@
 #include "Product.h"
-#include "Logger.h"
 #include <iostream>
 using namespace std;
 
@@ -10,9 +9,6 @@ Product::Product(int productID, string name, double price, int quantity)
     this->name = name;
     this->price = price;
     this->quantity = quantity;
-
-
-writeLog("created product= ProductID: " + to_string(productID) + ", name: " + name + ", price: " + to_string(price));
 }
 
 Product::~Product()

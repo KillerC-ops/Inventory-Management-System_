@@ -10,6 +10,8 @@
 #include "Order.h"
 #include "Warehouse.h"
 
+#include "Logger.h"
+
 class Inventory; // Forward declaration
 
 class OrderProcessor
@@ -25,7 +27,6 @@ public:
 
     //Main method to process orders + threads
     void processOrders();
-
 
     void displayOrders(); // New method to display orders
     // Processed count
@@ -45,6 +46,9 @@ public:
 
     std::vector<Order>& getOrders() {
         return orders;
+    }
+    void incrementProcessedCount() {
+        processedCount++;            
     }
 };
 

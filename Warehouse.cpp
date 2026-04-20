@@ -55,7 +55,7 @@ void Warehouse::process(){
 
     if (success){
         order.setStatus(1);
-
+        orderProcessor->incrementProcessedCount();
         writeLog("WarehouseID:" + to_string(warehouseID) + " SUCCESS: Order " + to_string(orderID) +" ProductID:" + to_string(productID) + " quantity:" + to_string(quantity));
     }
     else{

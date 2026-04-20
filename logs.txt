@@ -1,47 +1,40 @@
 Starting Inventory Management System
-created product= ProductID: 101, name: Laptop, price: 1200.500000
-created product= ProductID: 102, name: Smartphone, price: 800.000000
-created product= ProductID: 201, name: T-Shirt, price: 20.000000
-created product= ProductID: 202, name: Jeans, price: 40.000000
-created product= ProductID: 101, name: Laptop, price: 1200.500000
-Added product: ID=101, name=Laptop, price=1200.500000
-Added product: ID=102, name=Smartphone, price=800.000000
-Added product: ID=201, name=T-Shirt, price=20.000000
-Added product: ID=202, name=Jeans, price=40.000000
-Updated product: ID=101, added 50 units
-created product= ProductID: 1, name: Laptop, price: 15000.000000
-Added product: ID=1, name=Laptop, price=15000.000000
-created product= ProductID: 2, name: Phone, price: 8000.000000
-Added product: ID=2, name=Phone, price=8000.000000
-created product= ProductID: 3, name: Headphones, price: 1500.000000
-Added product: ID=3, name=Headphones, price=1500.000000
-created product= ProductID: 4, name: T-Shirt, price: 300.000000
-Added product: ID=4, name=T-Shirt, price=300.000000
-created product= ProductID: 5, name: Jacket, price: 1200.000000
-Added product: ID=5, name=Jacket, price=1200.000000
-starting order processing...
-Total orders to process: 0
+Added product: ID=101, name=Laptop, price=12000.000000, quantity=2
+Added product: ID=102, name=Smartphone, price=8000.000000, quantity=10
+Added product: ID=103, name=Headphones, price=1500.000000, quantity=2
+Added product: ID=104, name=Monitor, price=3000.000000, quantity=4
+Added product: ID=105, name=Keyboard, price=700.000000, quantity=6
+Added product: ID=201, name=T-Shirt, price=300.000000, quantity=10
+Added product: ID=202, name=Jeans, price=800.000000, quantity=5
+Added product: ID=203, name=Jacket, price=1500.000000, quantity=2
+Added product: ID=204, name=Sneakers, price=1200.000000, quantity=3
+Added product: ID=205, name=Hoodie, price=900.000000, quantity=1
+Initial Inventory added
+Starting order processing...
 Warehouse 1 created.
 Warehouse 2 created.
-Warehouse 3 created.
-Warehouse 4 created.
 Warehouse 1 started working.
+Warehouse 3 created.
+WarehouseID:1 is processing Order 1 ProductID: 103 quantity:2
 Warehouse 2 started working.
+Warehouse 4 created.
 Warehouse 3 started working.
+Inventory: ProductID 103 decreased by 2. current stock: 0
+WarehouseID:1 SUCCESS: Order 1 ProductID:103 quantity:2
 Warehouse 5 created.
-rking.
-WarehouseID:2 is processing Order 1 ProductID: 2 quantity:1
-WarehouseID:1 is processing Order 2 ProductID: 2 quantity:1
-WarehouseID:4 is processing Order 3 ProductID: 2 quantity:1
+Warehouse 4 started working.
+WarehouseID:3 is processing Order 3 ProductID: 203 quantity:2
+Inventory: ProductID 203 decreased by 2. current stock: 0
+WarehouseID:4 is processing Order 4 ProductID: 204 quantity:1
+Inventory: ProductID 204 decreased by 1. current stock: 2
+WarehouseID:2 is processing Order 2 ProductID: 203 quantity:1
+WarehouseID:3 SUCCESS: Order 3 ProductID:203 quantity:2
 Warehouse 5 started working.
-quantity:1 success
-WarehouseID:2 SUCCESS: Order 1 ProductID:2 quantity:1
-ty:1
-WarehouseID:1 FAILED: Order 2 ProductID:2 quantity:1 (not enough stock)
-Order failed= ProductID: 20 available, requested 1
- (not enough stock)
-WarehouseID:4 FAILED: Order 3 ProductID:2 quantity:1 (not enough stock)
-Order failed= ProductID: 20 available, requested 1
-WarehouseID:5 FAILED: Order 5 ProductID:2 quantity:1 (not enough stock)
-ending order processing...
-Processed 0 out of 5 orders.
+WarehouseID:4 SUCCESS: Order 4 ProductID:204 quantity:1
+Order failed= ProductID: 203 available 0, requested 1
+WarehouseID:2 FAILED: Order 2 ProductID:203 quantity:1 (not enough stock)
+WarehouseID:5 is processing Order 5 ProductID: 201 quantity:3
+Inventory: ProductID 201 decreased by 3. current stock: 7
+WarehouseID:5 SUCCESS: Order 5 ProductID:201 quantity:3
+Ending order processing...
+Processed 4 out of 5 orders.

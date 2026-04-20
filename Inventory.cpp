@@ -31,7 +31,7 @@ bool Inventory::addProduct(shared_ptr<Product> product) {
         // Insert new product
         products[key] = product;
 
-        writeLog("Added product: ID=" + to_string(key) + ", name=" + product->getName() + ", price=" + to_string(product->getPrice()));
+        writeLog("Added product: ID=" + to_string(key) + ", name=" + product->getName() + ", price=" + to_string(product->getPrice()) + ", quantity=" + to_string(product->getQuantity()));
     }
     // Update totalItems by adding the quantity of the added product
     int qtyToAdd = product->getQuantity();
@@ -61,10 +61,11 @@ bool Inventory::removeProduct(int id, int amountToRemove) {
 
         // Update totalItems by subtracting the quantity of the removed product
         totalItems -= amountToRemove;
-
+       
+         writeLog("Removed product= ProductID: " + to_string(id) + ", name: " + item->second->getName() + ", quantity: " + to_string(amountToRemove));
         return true;
     }
-
+    writeLog("Failed to remove product= ProductID: " + to_string(id));
     return false;
 }
 
@@ -116,6 +117,7 @@ std::vector<std::shared_ptr<Product>> Inventory::sortProductsByPrice() const {
               });
     // Step 4: Return the sorted vector
     // The vector now has products from cheapest to most expensive (including tax)
+
     return sortedProducts;
 }
 
@@ -158,11 +160,11 @@ bool Inventory::processOrder(int productID, int quantity){
             product->second->decreaseQuantity(quantity);
             totalItems -= quantity; // Update total items in inventory
 
-            writeLog("Order processed= ProductID: " + to_string(productID) + " quantity:" + to_string(quantity) + " success");
+            writeLog("Inventory: ProductID " + to_string(productID) + " decreased by " + to_string(quantity) + ". current stock: " + to_string(product->second->getQuantity()));
             return true; // Order processed successfully
         } else {
             
-            writeLog("Order failed= ProductID: " + to_string(productID) +   to_string(product->second->getQuantity()) + " available, requested " + to_string(quantity));
+            writeLog("Order failed= ProductID: " + to_string(productID)  + " available " +  to_string(product->second->getQuantity()) +", requested " + to_string(quantity));
             return false; // Not enough stock
         }
     } else {

@@ -15,9 +15,9 @@ class Inventory; // Forward declaration
 class OrderProcessor
 {
 private:
-    std::shared_ptr<Inventory> inventory;
+    std::shared_ptr<Inventory> inventory;    // Shared pointer to the inventory to access products and update quantities
     std::atomic<int> processedCount{0};
-    std::mutex orderMutex;
+    std::mutex orderMutex; // Mutex to protect access to the orders vector
     int nextOrderID = 1; // To generate unique order IDs
 
     std::vector<Order> orders; // Using vector instead of queue for better concurrent access

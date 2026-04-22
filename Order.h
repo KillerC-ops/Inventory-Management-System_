@@ -7,14 +7,14 @@
 #include "Product.h"
 
 
-// what I commented out is not needed for order 
+
 class Order
 {
     private:
-        int orderID;
+        int orderID; // Unique identifier for the order
         int productID; // This is the ID of the product being ordered
-        int orderStatus ;
-        int quantity;  
+        int orderStatus ;  // 1 = success, 2 = failed
+        int quantity;  // Quantity of the product being ordered
 
 public:
     Order(int OrderID, int productID, int quantity);

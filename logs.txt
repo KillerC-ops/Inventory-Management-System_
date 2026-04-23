@@ -1,40 +1,120 @@
 Starting Inventory Management System
-Added product: ID=101, name=Laptop, price=12000.000000, quantity=2
-Added product: ID=102, name=Smartphone, price=8000.000000, quantity=10
-Added product: ID=103, name=Headphones, price=1500.000000, quantity=2
-Added product: ID=104, name=Monitor, price=3000.000000, quantity=4
-Added product: ID=105, name=Keyboard, price=700.000000, quantity=6
-Added product: ID=201, name=T-Shirt, price=300.000000, quantity=10
-Added product: ID=202, name=Jeans, price=800.000000, quantity=5
-Added product: ID=203, name=Jacket, price=1500.000000, quantity=2
-Added product: ID=204, name=Sneakers, price=1200.000000, quantity=3
-Added product: ID=205, name=Hoodie, price=900.000000, quantity=1
-Initial Inventory added
+Added product: ID=101, name=Laptop, price=12000.000000, quantity=5
+Added product: ID=1, name=Laptop, price=15000.000000, quantity=5
+Added product: ID=2, name=Phone, price=8000.000000, quantity=3
+Added product: ID=3, name=Tablet, price=6000.000000, quantity=2
+Added product: ID=4, name=Monitor, price=4000.000000, quantity=4
+Added product: ID=5, name=Keyboard, price=500.000000, quantity=10
+Added product: ID=6, name=T-Shirt, price=300.000000, quantity=8
+Added product: ID=7, name=Jeans, price=700.000000, quantity=5
+Added product: ID=8, name=Jacket, price=1200.000000, quantity=2
+Added product: ID=9, name=Shoes, price=900.000000, quantity=6
+Added product: ID=10, name=Cap, price=150.000000, quantity=12
+Added product: ID=11, name=Mouse, price=250.000000, quantity=15
+Added product: ID=12, name=Speaker, price=1200.000000, quantity=3
+Added product: ID=13, name=Hoodie, price=800.000000, quantity=4
+Added product: ID=14, name=Shorts, price=400.000000, quantity=7
+Added product: ID=15, name=Camera, price=10000.000000, quantity=2
 Starting order processing...
 Warehouse 1 created.
 Warehouse 2 created.
 Warehouse 1 started working.
-Warehouse 3 created.
-WarehouseID:1 is processing Order 1 ProductID: 103 quantity:2
+WarehouseID:1 is processing Order 1 ProductID: 15 quantity:2
+Inventory: ProductID 15 decreased by 2. current stock: 0
+WarehouseID:1 SUCCESS: Order 1 ProductID:15 quantity:2
 Warehouse 2 started working.
+Warehouse 3 created.
 Warehouse 4 created.
-Warehouse 3 started working.
-Inventory: ProductID 103 decreased by 2. current stock: 0
-WarehouseID:1 SUCCESS: Order 1 ProductID:103 quantity:2
 Warehouse 5 created.
-Warehouse 4 started working.
-WarehouseID:3 is processing Order 3 ProductID: 203 quantity:2
-Inventory: ProductID 203 decreased by 2. current stock: 0
-WarehouseID:4 is processing Order 4 ProductID: 204 quantity:1
-Inventory: ProductID 204 decreased by 1. current stock: 2
-WarehouseID:2 is processing Order 2 ProductID: 203 quantity:1
-WarehouseID:3 SUCCESS: Order 3 ProductID:203 quantity:2
+WarehouseID:2 is processing Order 2 ProductID: 4 quantity:2
+Warehouse 3 started working.
+WarehouseID:3 is processing Order 3 ProductID: 6 quantity:2
+Warehouse 6 created.
 Warehouse 5 started working.
-WarehouseID:4 SUCCESS: Order 4 ProductID:204 quantity:1
-Order failed= ProductID: 203 available 0, requested 1
-WarehouseID:2 FAILED: Order 2 ProductID:203 quantity:1 (not enough stock)
-WarehouseID:5 is processing Order 5 ProductID: 201 quantity:3
-Inventory: ProductID 201 decreased by 3. current stock: 7
-WarehouseID:5 SUCCESS: Order 5 ProductID:201 quantity:3
+Inventory: ProductID 4 decreased by 2. current stock: 2
+WarehouseID:2 SUCCESS: Order 2 ProductID:4 quantity:2
+Warehouse 7 created.
+Warehouse 6 started working.
+WarehouseID:5 is processing Order 4 ProductID: 7 quantity:2
+Warehouse 4 started working.
+WarehouseID:4 is processing Order 6 ProductID: 11 quantity:1
+Warehouse 8 created.
+Warehouse 7 started working.
+WarehouseID:7 is processing Order 7 ProductID: 13 quantity:2
+Inventory: ProductID 6 decreased by 2. current stock: 6
+WarehouseID:3 SUCCESS: Order 3 ProductID:6 quantity:2
+WarehouseID:6 is processing Order 5 ProductID: 11 quantity:2
+Inventory: ProductID 7 decreased by 2. current stock: 3
+Warehouse 9 created.
+WarehouseID:5 SUCCESS: Order 4 ProductID:7 quantity:2
+Inventory: ProductID 11 decreased by 1. current stock: 14
+WarehouseID:4 SUCCESS: Order 6 ProductID:11 quantity:1
+Inventory: ProductID 13 decreased by 2. current stock: 2
+WarehouseID:7 SUCCESS: Order 7 ProductID:13 quantity:2
+Warehouse 10 created.
+Warehouse 8 started working.
+Inventory: ProductID 11 decreased by 2. current stock: 12
+Warehouse 9 started working.
+WarehouseID:8 is processing Order 8 ProductID: 9 quantity:1
+Inventory: ProductID 9 decreased by 1. current stock: 5
+Warehouse 10 started working.
+WarehouseID:6 SUCCESS: Order 5 ProductID:11 quantity:2
+Warehouse 11 created.
+WarehouseID:9 is processing Order 9 ProductID: 8 quantity:1
+WarehouseID:8 SUCCESS: Order 8 ProductID:9 quantity:1
+WarehouseID:10 is processing Order 10 ProductID: 101 quantity:1
+Inventory: ProductID 8 decreased by 1. current stock: 1
+WarehouseID:9 SUCCESS: Order 9 ProductID:8 quantity:1
+Warehouse 11 started working.
+WarehouseID:11 is processing Order 11 ProductID: 11 quantity:2
+Inventory: ProductID 101 decreased by 1. current stock: 4
+WarehouseID:10 SUCCESS: Order 10 ProductID:101 quantity:1
+Warehouse 12 created.
+Inventory: ProductID 11 decreased by 2. current stock: 10
+WarehouseID:11 SUCCESS: Order 11 ProductID:11 quantity:2
+Warehouse 13 created.
+Warehouse 12 started working.
+WarehouseID:12 is processing Order 12 ProductID: 3 quantity:1
+Warehouse 14 created.
+Warehouse 13 started working.
+Inventory: ProductID 3 decreased by 1. current stock: 1
+WarehouseID:12 SUCCESS: Order 12 ProductID:3 quantity:1
+Warehouse 15 created.
+Warehouse 14 started working.
+WarehouseID:14 is processing Order 13 ProductID: 13 quantity:3
+Order failed= ProductID: 13 available 2, requested 3
+WarehouseID:13 is processing Order 14 ProductID: 3 quantity:2
+Order failed= ProductID: 3 available 1, requested 2
+WarehouseID:13 FAILED: Order 14 ProductID:3 quantity:2 (not enough stock)
+WarehouseID:14 FAILED: Order 13 ProductID:13 quantity:3 (not enough stock)
+Warehouse 16 created.
+Warehouse 15 started working.
+Warehouse 17 created.
+Warehouse 16 started working.
+WarehouseID:16 is processing Order 15 ProductID: 4 quantity:2
+Inventory: ProductID 4 decreased by 2. current stock: 0
+WarehouseID:16 SUCCESS: Order 15 ProductID:4 quantity:2
+WarehouseID:15 is processing Order 16 ProductID: 101 quantity:3
+Inventory: ProductID 101 decreased by 3. current stock: 1
+WarehouseID:15 SUCCESS: Order 16 ProductID:101 quantity:3
+Warehouse 18 created.
+Warehouse 17 started working.
+Warehouse 19 created.
+Warehouse 18 started working.
+Warehouse 20 created.
+WarehouseID:17 is processing Order 17 ProductID: 15 quantity:2
+Order failed= ProductID: 15 available 0, requested 2
+WarehouseID:17 FAILED: Order 17 ProductID:15 quantity:2 (not enough stock)
+Warehouse 19 started working.
+WarehouseID:18 is processing Order 18 ProductID: 6 quantity:1
+Inventory: ProductID 6 decreased by 1. current stock: 5
+WarehouseID:18 SUCCESS: Order 18 ProductID:6 quantity:1
+Warehouse 20 started working.
+WarehouseID:19 is processing Order 19 ProductID: 6 quantity:2
+Inventory: ProductID 6 decreased by 2. current stock: 3
+WarehouseID:19 SUCCESS: Order 19 ProductID:6 quantity:2
+WarehouseID:20 is processing Order 20 ProductID: 101 quantity:2
+Order failed= ProductID: 101 available 1, requested 2
+WarehouseID:20 FAILED: Order 20 ProductID:101 quantity:2 (not enough stock)
 Ending order processing...
-Processed 4 out of 5 orders.
+Processed 16 out of 20 orders.

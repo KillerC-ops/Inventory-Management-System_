@@ -36,20 +36,30 @@ int main()
     writeLog("Starting Inventory Management System"); 
 
     auto inventory = make_shared<Inventory>();
-    // Starter products 5 electronics and 5 clothes
-    inventory->addProduct(make_shared<Electronics>(101, "Laptop", 12000, 5, "16GB RAM"));
-    inventory->addProduct(make_shared<Electronics>(102, "Smartphone", 8000, 10, "128GB Storage"));
-    inventory->addProduct(make_shared<Electronics>(103, "Headphones", 1500, 2, "Noise Cancelling"));
-    inventory->addProduct(make_shared<Electronics>(104, "Monitor", 3000, 4, "24 inch FHD"));
-    inventory->addProduct(make_shared<Electronics>(105, "Keyboard", 700, 6, "Mechanical RGB"));
+   inventory->addProduct(make_shared<Electronics>(101, "Laptop", 12000, 5, "16GB RAM"));
+    // Electronics
+    inventory->addProduct(make_shared<Electronics>(1, "Laptop", 15000, 5, "16GB RAM"));
+    inventory->addProduct(make_shared<Electronics>(2, "Phone", 8000, 3, "128GB"));
+    inventory->addProduct(make_shared<Electronics>(3, "Tablet", 6000, 2, "64GB"));
+    inventory->addProduct(make_shared<Electronics>(4, "Monitor", 4000, 4, "24 inch"));
+    inventory->addProduct(make_shared<Electronics>(5, "Keyboard", 500, 10, "Mechanical"));
 
-    inventory->addProduct(make_shared<Clothes>(201, "T-Shirt", 300, 10, "M", "Cotton"));
-    inventory->addProduct(make_shared<Clothes>(202, "Jeans", 800, 5, "L", "Denim"));
-    inventory->addProduct(make_shared<Clothes>(203, "Jacket", 1500, 2, "XL", "Leather"));
-    inventory->addProduct(make_shared<Clothes>(204, "Sneakers", 1200, 3, "42", "Synthetic"));
-    inventory->addProduct(make_shared<Clothes>(205, "Hoodie", 900, 1, "L", "Fleece"));
+    // Clothes
+    inventory->addProduct(make_shared<Clothes>(6, "T-Shirt", 300, 8, "M", "Cotton"));
+    inventory->addProduct(make_shared<Clothes>(7, "Jeans", 700, 5, "L", "Denim"));
+    inventory->addProduct(make_shared<Clothes>(8, "Jacket", 1200, 2, "XL", "Leather"));
+    inventory->addProduct(make_shared<Clothes>(9, "Shoes", 900, 6, "42", "Leather"));
+    inventory->addProduct(make_shared<Clothes>(10, "Cap", 150, 12, "One Size", "Polyester"));
 
-    int choice;
+    // More mixed
+    inventory->addProduct(make_shared<Electronics>(11, "Mouse", 250, 15, "Wireless"));
+    inventory->addProduct(make_shared<Electronics>(12, "Speaker", 1200, 3, "Bluetooth"));
+    inventory->addProduct(make_shared<Clothes>(13, "Hoodie", 800, 4, "L", "Fleece"));
+    inventory->addProduct(make_shared<Clothes>(14, "Shorts", 400, 7, "M", "Cotton"));
+    inventory->addProduct(make_shared<Electronics>(15, "Camera", 10000, 2, "HD"));
+
+
+    int choice;  // Get user choice
     do {
         displayMenu();
         cin >> choice; // Get user choice

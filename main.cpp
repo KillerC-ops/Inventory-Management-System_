@@ -33,11 +33,11 @@ int main()
     ofstream logFile("logs.txt", ios::trunc);
     logFile.close();
 
-    writeLog("Starting Inventory Management System");
+    writeLog("Starting Inventory Management System"); 
 
     auto inventory = make_shared<Inventory>();
     // Starter products 5 electronics and 5 clothes
-    inventory->addProduct(make_shared<Electronics>(101, "Laptop", 12000, 2, "16GB RAM"));
+    inventory->addProduct(make_shared<Electronics>(101, "Laptop", 12000, 5, "16GB RAM"));
     inventory->addProduct(make_shared<Electronics>(102, "Smartphone", 8000, 10, "128GB Storage"));
     inventory->addProduct(make_shared<Electronics>(103, "Headphones", 1500, 2, "Noise Cancelling"));
     inventory->addProduct(make_shared<Electronics>(104, "Monitor", 3000, 4, "24 inch FHD"));
@@ -49,12 +49,10 @@ int main()
     inventory->addProduct(make_shared<Clothes>(204, "Sneakers", 1200, 3, "42", "Synthetic"));
     inventory->addProduct(make_shared<Clothes>(205, "Hoodie", 900, 1, "L", "Fleece"));
 
-    writeLog("Initial Inventory added");
-
     int choice;
     do {
         displayMenu();
-        cin >> choice;
+        cin >> choice; // Get user choice
 
         switch (choice)
         {
@@ -107,12 +105,22 @@ void handleAddProduct(shared_ptr<Inventory> inventory)
 
     cout << "Enter ID: "; 
     cin >> id;
+
+    //Check if product ID already exists
+    if (inventory->findProduct(id))
+    {
+        cout << "Product ID already exists! Try again.\n";
+        return;
+    }
+
     cout << "Enter Name: "; 
     cin >> name;
     cout << "Enter Price: "; 
     cin >> price;
     cout << "Enter Quantity: "; 
     cin >> qty;
+
+
 
     if (type == 1)
     {
@@ -194,4 +202,9 @@ void handleProcessOrders(shared_ptr<Inventory> inventory)
 
     cout << "\n=== Orders ===\n";
     processor.displayOrders();
+
+    cout<<endl;
+
+    cout << "\n=== FINAL INVENTORY ===\n";
+    inventory->displayAllProducts();
 }

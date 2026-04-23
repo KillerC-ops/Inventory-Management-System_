@@ -19,7 +19,7 @@ bool Inventory::addProduct(shared_ptr<Product> product) {
 
     int key = product->getID(); 
 
-    //Do not be shocked by the auto, it is just a way to simplify the code and make it more readable. It automatically deduces the type of the variable based on the initializer. In this case, it deduces that item is an iterator for the unordered_map<int, shared_ptr<Product>>.
+    
     auto item = products.find(key);
     if (item != products.end()) {
         // Product exists, add quantity from the new product
@@ -151,12 +151,12 @@ unordered_map<int, shared_ptr<Product>> Inventory::getProducts() {
     return products;
 }
 
-bool Inventory::processOrder(int productID, int quantity){
+bool Inventory::processOrder(int productID, int quantity){ 
     std::lock_guard<std::shared_mutex> lock(inventoryMutex); // Lock the inventory for writing
 
-    auto product = products.find(productID);
-    if (product != products.end()) {
-        if (product->second->getQuantity() >= quantity) {
+    auto product = products.find(productID); // Find the product in the inventory using the product ID
+    if (product != products.end()) { // If the product is found in the inventory
+        if (product->second->getQuantity() >= quantity) {   //
             product->second->decreaseQuantity(quantity);
             totalItems -= quantity; // Update total items in inventory
 

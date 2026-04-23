@@ -9,16 +9,16 @@ void OrderProcessor::processOrders() {
     writeLog("Starting order processing...");
     
 
-    std::vector<std::thread> threads;
+    std::vector<std::thread> threads; // Vector to hold the threads for processing orders in parallel
 
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 20; i++)
     {
-        Warehouse warehouse(i + 1, inventory, this);
-        threads.emplace_back(&Warehouse::process, warehouse);
+        Warehouse warehouse(i + 1, inventory, this); // Create a warehouse with a unique ID and the shared inventory and order processor
+        threads.emplace_back(&Warehouse::process, warehouse); // Start a thread for each warehouse to process orders
         
     }
-    for (auto& thread : threads) {
-        thread.join();
+    for (auto& thread : threads) { 
+        thread.join(); // Wait for all threads to finish processing 
     }
 
     writeLog("Ending order processing...");
@@ -35,7 +35,7 @@ int OrderProcessor::getProcessedCount() {
 void OrderProcessor::displayOrders() {
     std::lock_guard<std::mutex> lock(orderMutex); // Lock the orders for reading
 
-    if(orders.empty()) {
+    if(orders.empty()) { // If there are no orders, we display a message and return
         std::cout << "No orders to display.\n";
         return;
     }

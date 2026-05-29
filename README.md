@@ -1,6 +1,6 @@
-Inventory Management System
+# Inventory Management System
 
-Overview:
+### Overview:
 
 This project is an Inventory Management System developed as part of a collaborative university software development project. The system was designed to simulate and manage inventory operations such as stock tracking, warehouse management and inventory updates.
 
@@ -8,7 +8,7 @@ The project demonstrates the application of Object-Oriented Programming principl
 
 This repository showcases my contributions, continued improvements and understanding of the system.
 
-Features:
+### Features:
 
 Inventory tracking and stock management
 Warehouse simulation
@@ -19,7 +19,7 @@ Input validation
 Multithreading implementation
 Object-Oriented Programming design
 
-Technologies Used:
+### Technologies Used:
 
 C++
 STL Containers
@@ -28,7 +28,7 @@ Object-Oriented Programming (OOP)
 File Handling
 Git & GitHub
 
-My Contributions:
+### My Contributions:
 
 Assisted in the development and implementation of system functionality
 Contributed to debugging and testing
@@ -36,9 +36,9 @@ Worked on inventory management logic and validation
 Participated in collaborative development using GitHub
 Helped improve system reliability and performance
 
-System Demonstration
+### System Demonstration
 
-Main Menu:
+## Main Menu:
 
 
 
@@ -46,7 +46,7 @@ Main Menu:
 
 
 
-Adding a Product:
+## Adding a Product:
 
 
 
@@ -54,13 +54,13 @@ Adding a Product:
 
 
 
-Viewing Inventory:
+## Viewing Inventory:
 
 
 <img width="439" height="693" alt="image" src="https://github.com/user-attachments/assets/32be468d-a7a8-4242-a282-1fd529de523d" />
 
 
-Multithreading Simulation:
+## Multithreading Simulation:
 
 
 
@@ -69,29 +69,29 @@ Multithreading Simulation:
 
 
 
-Using VS Code
+### Using VS Code
 1. Clone the repository
 2. Open the project folder in VS Code
 3. Compile the project
 3. Run the executable
 
-Example compile command:
+## Example compile command:
 
 g++ *.cpp -o inventory_system -pthread
 
-Run:
+## Run:
 
 ./inventory_system
 
 
-Future Improvements
+### Future Improvements:
 - GUI implementation
 - Database integration
 - User authentication system
 - Advanced reporting and analytics
 - Data visualization features
 
-Learning Outcomes
+### Learning Outcomes
 
 Through this project, I strengthened my understanding of:
 
@@ -103,6 +103,6 @@ Through this project, I strengthened my understanding of:
 - Data handling and validation
 
 
-Author Note
+### Author Note
 
 This project originated as a collaborative academic project. This repository serves as a portfolio showcase of my involvement, understanding and continued development of the system.

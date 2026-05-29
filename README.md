@@ -69,3 +69,40 @@ Multithreading Simulation:
 
 
 
+Using VS Code
+1. Clone the repository
+2. Open the project folder in VS Code
+3. Compile the project
+3. Run the executable
+
+Example compile command:
+
+g++ *.cpp -o inventory_system -pthread
+
+Run:
+
+./inventory_system
+
+
+Future Improvements
+- GUI implementation
+- Database integration
+- User authentication system
+- Advanced reporting and analytics
+- Data visualization features
+
+Learning Outcomes
+
+Through this project, I strengthened my understanding of:
+
+- Software development workflows
+- Team collaboration using GitHub
+- Problem-solving and debugging
+- Object-Oriented Programming concepts
+- Multithreading in C++
+- Data handling and validation
+
+
+Author Note
+
+This project originated as a collaborative academic project. This repository serves as a portfolio showcase of my involvement, understanding and continued development of the system.

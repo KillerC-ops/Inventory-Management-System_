@@ -60,3 +60,12 @@ Viewing Inventory:
 <img width="439" height="693" alt="image" src="https://github.com/user-attachments/assets/32be468d-a7a8-4242-a282-1fd529de523d" />
 
 
+Multithreading Simulation:
+
+
+
+<img width="556" height="388" alt="image" src="https://github.com/user-attachments/assets/cd87cc0c-7167-438f-adb5-20a3432a4715" />
+
+
+
+

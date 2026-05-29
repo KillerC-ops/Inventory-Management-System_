@@ -43,3 +43,20 @@ Main Menu:
 
 
 <img width="659" height="281" alt="image" src="https://github.com/user-attachments/assets/a0b8a260-616f-4a16-8926-ebc4c21e1d60" />
+
+
+
+Adding a Product:
+
+
+
+<img width="445" height="239" alt="image" src="https://github.com/user-attachments/assets/a4561611-3c22-49c2-8f55-cc3f0c7b3b7d" />
+
+
+
+Viewing Inventory:
+
+
+<img width="439" height="693" alt="image" src="https://github.com/user-attachments/assets/32be468d-a7a8-4242-a282-1fd529de523d" />
+
+
